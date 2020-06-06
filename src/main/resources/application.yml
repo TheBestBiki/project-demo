@@ -1,0 +1,34 @@
+server:
+  port: 8888
+  
+
+#数据库四大参数
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/testdb
+    username: root
+    password: 123456
+    initSize: 5
+    maxActive: 20
+    minIdle:  5
+    maxWait: 5000
+    testOnReturn: true
+  profiles:
+    active: dev
+
+
+
+
+logging:
+  config: classpath:logback-app.xml
+  
+#mybatis的配置
+mybatis:
+  type-aliases-package: com.biki.project.pojo
+  mapper-locations: classpath:mapper/*.xml
+  
+  
+  
+  
+  
