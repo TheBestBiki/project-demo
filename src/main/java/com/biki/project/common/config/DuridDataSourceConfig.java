@@ -1,4 +1,4 @@
-package com.biki.project.config;
+package com.biki.project.common.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,14 @@
-package com.biki.project.config;
+package com.biki.project.common.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * 配置Durid的参数类，用于封装参数，给DuridDataSourceConfig类调用
+ * @ConfigurationProperties 注解实际就是去读取yml里的参数信息
+ */
 @ConfigurationProperties(prefix="spring.datasource")
 @Component
-//配置Durid的参数类，用于封装参数，给DuridDataSourceConfig类调用
-//@ConfigurationProperties注解实际就是去读取yml里的参数信息
 public class DuridConfig {
 	
 	private String driverClassName;

@@ -1,6 +1,7 @@
 server:
   port: 8888
-  
+  servlet:
+    context-path: /biki
 
 #数据库四大参数
 spring:

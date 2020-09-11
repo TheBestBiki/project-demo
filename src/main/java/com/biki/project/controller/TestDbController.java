@@ -15,6 +15,7 @@ public class TestDbController {
     @Autowired
     private TestDbMapper testDbMapper;
 
+    //http://localhost:8888/biki/test
     @GetMapping("/test")
     public String test(){
         return testDbMapper.finId();
