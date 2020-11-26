@@ -4,9 +4,11 @@ import com.biki.project.dto.TestTable;
 import com.biki.project.mapper.TestDbMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author biki
@@ -34,6 +36,19 @@ public class TestDbController {
         List<TestTable> testTables = testDbMapper.testSameData();
         return testTables.get(0).toString()+"--"+testTables.get(1).toString();
 
+    }
+
+    /**
+     * get类型的请求，若参数里加了@RequestParam(name="id")，则请求里一定要有id这个参数
+     * 不加该注解，则当请求里没有该id参数时，该参数赋值为null
+     * 加与不加的最大区别就是 加该注解的好处之一就是指定参数名且请求必须含有该参数
+     *
+     * 可以通过@RequestParam(required = false)设置为非必传。因为required值默认是true，所以默认必传。
+     * 通过@RequestParam(defaultValue = "0")指定参数默认值，这时请求里不包含该参数也行
+     */
+    @GetMapping("/test3")
+    public String test3(@RequestParam(name = "id", required = false)String id){
+        return Objects.isNull(id) ? "空" : id;
     }
 
 }
