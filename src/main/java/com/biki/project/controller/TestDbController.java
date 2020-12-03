@@ -3,10 +3,13 @@ package com.biki.project.controller;
 import com.biki.project.dto.TestTable;
 import com.biki.project.mapper.TestDbMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,6 +18,7 @@ import java.util.Objects;
  * @date 2020/6/6
  */
 @RestController
+@Validated
 public class TestDbController {
 
     @Autowired
@@ -45,10 +49,12 @@ public class TestDbController {
      *
      * 可以通过@RequestParam(required = false)设置为非必传。因为required值默认是true，所以默认必传。
      * 通过@RequestParam(defaultValue = "0")指定参数默认值，这时请求里不包含该参数也行
+     *
+     * get请求想要@NotNull 生效的话，要在本类controller上加@Validated注解
      */
     @GetMapping("/test3")
-    public String test3(@RequestParam(name = "id", required = false)String id){
-        return Objects.isNull(id) ? "空" : id;
+    public Integer test3(@RequestParam(name = "id") @NotNull(message = "客戶ID不能为空")Integer id){
+        return Objects.isNull(id) ? 1111 : id;
     }
 
 }
