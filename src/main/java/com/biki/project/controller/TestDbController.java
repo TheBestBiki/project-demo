@@ -2,15 +2,17 @@ package com.biki.project.controller;
 
 import com.biki.project.dto.TestTable;
 import com.biki.project.mapper.TestDbMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -20,6 +22,8 @@ import java.util.Objects;
 @RestController
 @Validated
 public class TestDbController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TestDbController.class);
 
     @Autowired
     private TestDbMapper testDbMapper;
@@ -55,6 +59,34 @@ public class TestDbController {
     @GetMapping("/test3")
     public Integer test3(@RequestParam(name = "id") @NotNull(message = "客戶ID不能为空")Integer id){
         return Objects.isNull(id) ? 1111 : id;
+    }
+
+    @PostMapping("/test4")
+    public String test4(@RequestBody TestTable dto){
+        System.out.println(dto.getAmount());
+        return "111";
+    }
+
+    @GetMapping("/testInsertByMap")
+    public String testInsertByMap(@RequestParam(name = "id",required = false) Integer id, @RequestParam(name = "name",required = false) String name){
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("name",name);
+        return testDbMapper.testInsertByMap(map);
+    }
+
+    @GetMapping("/testLogger")
+    public String testLogger(){
+        try{
+            String aa= null;
+            aa.equals("11");
+        }catch (Exception e){
+            logger.info("异常：",e); // info 异常后面不加大括号，能完整打印出异常所有信息
+            logger.info("单号:{},异常:{}","111",e); // info 异常后面加了大括号，不能完整打印出异常所有信息
+            logger.warn("单号:{},异常:{}","111",e); // warn 异常后面加了大括号，不能完整打印出异常所有信息
+            logger.warn("单号:{},异常：","222",e);  // warn 异常后面不加大括号，能完整打印出异常所有信息
+        }
+        return "111";
     }
 
 }

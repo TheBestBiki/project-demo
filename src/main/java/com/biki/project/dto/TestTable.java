@@ -1,5 +1,7 @@
 package com.biki.project.dto;
 
+import java.math.BigDecimal;
+
 /**
  * @author o-Biki.huang
  * @version 1.0
@@ -9,6 +11,7 @@ public class TestTable {
 
     private String id;
     private String test;
+    private BigDecimal amount;
 
     public String getId() {
         return id;
@@ -24,5 +27,13 @@ public class TestTable {
 
     public void setTest(String test) {
         this.test = test;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }
