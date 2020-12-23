@@ -1,4 +1,4 @@
-package com.biki.project.dto;
+package com.biki.project.dto.test;
 
 import java.math.BigDecimal;
 

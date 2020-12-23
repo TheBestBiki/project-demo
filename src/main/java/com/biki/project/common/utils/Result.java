@@ -11,11 +11,43 @@ public class Result<T> {
 
     private T data;
 
-    private String code;
+    private Integer code;
 
     private String msg;
 
     private Boolean success;
+
+    public static <T> Result<T> success(T data){
+        Result<T> result = new Result<>();
+        result.data = data;
+        result.success=true;
+        result.code=200;
+        return result;
+    }
+
+    public static Result<String> successMsg(String msg){
+        Result<String> result = new Result<>();
+        result.msg=msg;
+        result.success=true;
+        result.code=200;
+        return result;
+    }
+
+    public static <T> Result<T> fail(T data){
+        Result<T> result = new Result<>();
+        result.data = data;
+        result.success=false;
+        result.code=500;
+        return result;
+    }
+
+    public static Result<String> failMsg(String msg){
+        Result<String> result = new Result<>();
+        result.msg=msg;
+        result.success=false;
+        result.code=500;
+        return result;
+    }
 
     public T getData() {
         return data;
@@ -25,11 +57,11 @@ public class Result<T> {
         this.data = data;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

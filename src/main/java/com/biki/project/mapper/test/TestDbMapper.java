@@ -1,8 +1,7 @@
-package com.biki.project.mapper;
+package com.biki.project.mapper.test;
 
 
-import com.biki.project.dto.TestTable;
-import org.apache.ibatis.annotations.Insert;
+import com.biki.project.dto.test.TestTable;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;

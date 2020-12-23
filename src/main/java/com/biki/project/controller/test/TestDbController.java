@@ -1,14 +1,14 @@
-package com.biki.project.controller;
+package com.biki.project.controller.test;
 
-import com.biki.project.dto.TestTable;
-import com.biki.project.mapper.TestDbMapper;
+import com.biki.project.common.utils.Result;
+import com.biki.project.dto.test.TestTable;
+import com.biki.project.mapper.test.TestDbMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
@@ -61,12 +61,25 @@ public class TestDbController {
         return Objects.isNull(id) ? 1111 : id;
     }
 
+    /**
+     * 测试前端传的入参json里的数字会不会自动转为BigDecimal
+     * 结果：会
+     * @param dto
+     * @return
+     */
     @PostMapping("/test4")
     public String test4(@RequestBody TestTable dto){
         System.out.println(dto.getAmount());
         return "111";
     }
 
+    /**
+     * 测试不构建类，直接用map作为mapper接口入参
+     * 结果：使用方式跟类的一样
+     * @param id
+     * @param name
+     * @return
+     */
     @GetMapping("/testInsertByMap")
     public String testInsertByMap(@RequestParam(name = "id",required = false) Integer id, @RequestParam(name = "name",required = false) String name){
         Map<String,Object> map = new HashMap<>();
@@ -75,6 +88,12 @@ public class TestDbController {
         return testDbMapper.testInsertByMap(map);
     }
 
+    /**
+     * 测试异常日志打印方式。e.toString()不能替换成e，否则不会打印在日志里。最后一个e是为了打印出完整的堆栈异常信息
+     * e.toString()也可以换成e.getMessage()，不过打印出来的信息比较少
+     * 结果：推荐使用 logger.error("单号:{},异常：","123",e.toString(),e);
+     * @return
+     */
     @GetMapping("/testLogger")
     public String testLogger(){
         try{
@@ -87,6 +106,11 @@ public class TestDbController {
             logger.warn("单号:{},异常：","222",e);  // warn 异常后面不加大括号，能完整打印出异常所有信息
         }
         return "111";
+    }
+
+    @GetMapping("/testResult")
+    public Result<String> testResult(){
+        return Result.success("1111");
     }
 
 }

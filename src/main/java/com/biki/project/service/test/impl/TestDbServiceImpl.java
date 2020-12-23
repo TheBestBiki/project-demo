@@ -1,6 +1,6 @@
-package com.biki.project.service.impl;
+package com.biki.project.service.test.impl;
 
-import com.biki.project.service.TestDbService;
+import com.biki.project.service.test.TestDbService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
