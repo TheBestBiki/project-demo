@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author biki
@@ -56,8 +53,8 @@ public class TestDbController {
      *
      * get请求想要@NotNull 生效的话，要在本类controller上加@Validated注解
      */
-    @GetMapping("/test3")
-    public Integer test3(@RequestParam(name = "id") @NotNull(message = "客戶ID不能为空")Integer id){
+    @GetMapping("/testRequestParam")
+    public Integer test3(@RequestParam(name = "id") Integer id){
         return Objects.isNull(id) ? 1111 : id;
     }
 
@@ -67,6 +64,14 @@ public class TestDbController {
         return "111";
     }
 
+    /**
+     * Mybatis，将Map作为参数，跟平时建dto来传一样
+     * 当查询参数只有少数的几个时，可以不用建新类，直接用map来作为入参
+     * key 的值即是map里引用的值，如 #{id}
+     * @param id
+     * @param name
+     * @return
+     */
     @GetMapping("/testInsertByMap")
     public String testInsertByMap(@RequestParam(name = "id",required = false) Integer id, @RequestParam(name = "name",required = false) String name){
         Map<String,Object> map = new HashMap<>();
@@ -75,6 +80,10 @@ public class TestDbController {
         return testDbMapper.testInsertByMap(map);
     }
 
+    /**
+     * 推荐阅读日志打印相关文章：https://www.cnblogs.com/lingyejun/p/9366533.html
+     * @return
+     */
     @GetMapping("/testLogger")
     public String testLogger(){
         try{
@@ -84,7 +93,8 @@ public class TestDbController {
             logger.info("异常：",e); // info 异常后面不加大括号，能完整打印出异常所有信息
             logger.info("单号:{},异常:{}","111",e); // info 异常后面加了大括号，不能完整打印出异常所有信息
             logger.warn("单号:{},异常:{}","111",e); // warn 异常后面加了大括号，不能完整打印出异常所有信息
-            logger.warn("单号:{},异常：","222",e);  // warn 异常后面不加大括号，能完整打印出异常所有信息
+            logger.warn("单号:{},异常：","222",e);  // warn 异常后面不加大括号，能完整打印出详细的异常堆栈信息
+            logger.warn("单号:{},异常：{}","222",e.toString(),e);  // 推荐写法，打印异常，并打印详细的异常堆栈信息  e.getMessage()打印的信息比e.toString()简短
         }
         return "111";
     }
