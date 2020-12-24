@@ -25,10 +25,11 @@ public class ControllerResultInterceptor implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if(body instanceof Result){
+        //对controller接口返回值里的数据，在传给前端之前进行修改
+        /*if(body instanceof Result){
             ((Result) body).setData("修改后的数据");
             System.out.println(JSON.toJSONString(body));
-        }
+        }*/
         return body;
     }
 

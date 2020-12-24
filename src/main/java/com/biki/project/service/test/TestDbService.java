@@ -1,4 +1,4 @@
-package com.biki.project.service;
+package com.biki.project.service.test;
 
 public interface TestDbService {
 

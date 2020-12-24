@@ -1,14 +1,14 @@
-package com.biki.project.controller;
+package com.biki.project.controller.test;
 
-import com.biki.project.dto.TestTable;
-import com.biki.project.mapper.TestDbMapper;
+import com.biki.project.common.utils.Result;
+import com.biki.project.dto.test.TestTable;
+import com.biki.project.mapper.test.TestDbMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
@@ -58,6 +58,12 @@ public class TestDbController {
         return Objects.isNull(id) ? 1111 : id;
     }
 
+    /**
+     * 测试前端传的入参json里的数字会不会自动转为BigDecimal
+     * 结果：会
+     * @param dto
+     * @return
+     */
     @PostMapping("/test4")
     public String test4(@RequestBody TestTable dto){
         System.out.println(dto.getAmount());
@@ -65,6 +71,9 @@ public class TestDbController {
     }
 
     /**
+     * 测试不构建类，直接用map作为mapper接口入参
+     * 结果：使用方式跟类的一样
+     *
      * Mybatis，将Map作为参数，跟平时建dto来传一样
      * 当查询参数只有少数的几个时，可以不用建新类，直接用map来作为入参
      * key 的值即是map里引用的值，如 #{id}
@@ -81,6 +90,10 @@ public class TestDbController {
     }
 
     /**
+     * 测试异常日志打印方式。e.toString()不能替换成e，否则不会打印在日志里。最后一个e是为了打印出完整的堆栈异常信息
+     * e.toString()也可以换成e.getMessage()，不过打印出来的信息比较少
+     * 结果：推荐使用 logger.error("单号:{},异常：","123",e.toString(),e);
+     *
      * 推荐阅读日志打印相关文章：https://www.cnblogs.com/lingyejun/p/9366533.html
      * @return
      */
@@ -97,6 +110,11 @@ public class TestDbController {
             logger.warn("单号:{},异常：{}","222",e.toString(),e);  // 推荐写法，打印异常，并打印详细的异常堆栈信息  e.getMessage()打印的信息比e.toString()简短
         }
         return "111";
+    }
+
+    @GetMapping("/testResult")
+    public Result<String> testResult(){
+        return Result.success("1111");
     }
 
 }
