@@ -1,13 +1,18 @@
 package com.biki.project.common.utils;
 
+import java.io.Serializable;
+
 /**
  * @author o-Biki.huang
  * @version 1.0
  * @date 2020/9/11
  */
-public class Result<T> {
+public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private static final Integer SUCCESS_CODE = 1;
+    private static final Integer FAIL_CODE = 0;
 
     private T data;
 
@@ -17,36 +22,35 @@ public class Result<T> {
 
     private Boolean success;
 
+    private Result() {
+    }
+
+    private Result(T data, Integer code, Boolean success) {
+        this.data = data;
+        this.code = code;
+        this.success = success;
+    }
+
+    private Result(Integer code, String msg, Boolean success) {
+        this.code = code;
+        this.msg = msg;
+        this.success = success;
+    }
+
     public static <T> Result<T> success(T data){
-        Result<T> result = new Result<>();
-        result.data = data;
-        result.success=true;
-        result.code=200;
-        return result;
+        return new Result<>(data,SUCCESS_CODE,true);
     }
 
     public static Result<String> successMsg(String msg){
-        Result<String> result = new Result<>();
-        result.msg=msg;
-        result.success=true;
-        result.code=200;
-        return result;
+        return new Result<>(SUCCESS_CODE,msg,true);
     }
 
     public static <T> Result<T> fail(T data){
-        Result<T> result = new Result<>();
-        result.data = data;
-        result.success=false;
-        result.code=500;
-        return result;
+        return new Result<>(data,FAIL_CODE,false);
     }
 
     public static Result<String> failMsg(String msg){
-        Result<String> result = new Result<>();
-        result.msg=msg;
-        result.success=false;
-        result.code=500;
-        return result;
+        return new Result<>(FAIL_CODE,msg,false);
     }
 
     public T getData() {
