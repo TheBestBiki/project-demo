@@ -19,7 +19,7 @@ import java.util.Arrays;
  *
  * 使用@Aspect 注解的类， Spring 将会把它当作一个特殊的Bean（一个切面），也就是不对这个类本身进行动态代理
  *
- * 注意点
+ * 注意点:
  * 如果在同一个 aspect 类中，针对同一个 pointcut，定义了两个相同的 advice(比如，定义了两个 @Before)，
  * 那么这两个 advice 的执行顺序是无法确定的，哪怕你给这两个 advice 添加了 @Order 这个注解，也不行。这点切记。
  * 对于@Around这个advice，不管它有没有返回值，但是必须要方法内部，调用一下 pjp.proceed();
@@ -45,7 +45,7 @@ public class LoggerTestAspect {
     /**
      * ProceedingJoinPoint.proceed(); 被注解标记的方法开始执行并返回结果
      * ProceedingJoinPoint.getArgs(); 被注解标记的方法的参数，参数可能有多个，所以返回值是数组
-     * ProceedingJoinPoint.getTarget(); 被织入的目标对象，即代理类
+     * ProceedingJoinPoint.getTarget(); 被织入的目标对象，即被注解标记的方法所在的类
      *
      * @param point
      * @return
@@ -77,12 +77,13 @@ public class LoggerTestAspect {
     public void log(JoinPoint point, Object returnValue) {
         System.out.println("@AfterReturning：模拟日志记录功能...");
         System.out.println("@AfterReturning：目标方法为：" +
-                point.getSignature().getDeclaringTypeName() +
-                "." + point.getSignature().getName());
+                point.getSignature().getDeclaringTypeName() + // 该行表示被注解标记的方法名或者类名等的路径
+                "....." + point.getSignature().getName()); //该行表示被注解标记的方法或者类等的名称
         System.out.println("@AfterReturning：参数为：" +
-                Arrays.toString(point.getArgs()));
-        System.out.println("@AfterReturning：返回值为：" + returnValue);
-        System.out.println("@AfterReturning：被织入的目标对象为：" + point.getTarget());
+                Arrays.toString(point.getArgs())); // 表示被注解标记的方法的参数的值，没有名称。如：["String的值"，123]
+        System.out.println("------打印参数："+point.getArgs()[0]+"-----"+point.getArgs()[1]); //若被标记的方法是没有入参的，则这样写会报错
+        System.out.println("@AfterReturning：返回值为：" + returnValue); // returnValue表示被注解标记的方法的返回值
+        System.out.println("@AfterReturning：被织入的目标对象为：" + point.getTarget()); //即被注解标记的方法所在的类，即对象
 
     }
 
@@ -96,14 +97,7 @@ public class LoggerTestAspect {
         System.out.println("@After：被织入的目标对象为：" + point.getTarget());
     }
 
-    @AfterThrowing(value="@annotation(com.biki.project.common.annotation.LoggerTest)",throwing = "ex")
-    public void afterThrowing(JoinPoint joinPoint, Throwable ex) { // Throwable ex 为注解标注的方法抛出的异常
-        MethodSignature ms = (MethodSignature) joinPoint.getSignature();
-        Method method = ms.getMethod();
-        String s = method.getAnnotation(LoggerTest.class).value();
-    }
-
-    @AfterReturning(value="@annotation(com.biki.project.common.annotation.LoggerTest)", returning="result")//有注解标记的方法，执行该后置返回
+    /*@AfterReturning(value="@annotation(com.biki.project.common.annotation.LoggerTest)", returning="result")//有注解标记的方法，执行该后置返回
     public void afterReturning(JoinPoint joinPoint , Object result) {//注解标注的方法返回值
         MethodSignature ms = (MethodSignature) joinPoint.getSignature();
         Method method = ms.getMethod();
@@ -112,5 +106,5 @@ public class LoggerTestAspect {
         String smsContent = loggerTest.value();
         boolean exec = loggerTest.execution();
 
-}
+    }*/
 }

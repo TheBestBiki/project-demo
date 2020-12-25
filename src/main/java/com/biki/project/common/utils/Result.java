@@ -84,4 +84,14 @@ public class Result<T> implements Serializable {
     public void setSuccess(Boolean success) {
         this.success = success;
     }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "data=" + data +
+                ", code=" + code +
+                ", msg='" + msg + '\'' +
+                ", success=" + success +
+                '}';
+    }
 }
