@@ -21,6 +21,13 @@ public class TestController {
     private TestService testService;
 
     //http://localhost:8888/biki/test/testMuchImplement
+
+    /**
+     * 测试接口多实现时的注入问题
+     * 结果: 要用 @Qualifier 指定是哪一个实现类
+     * @param number
+     * @return
+     */
     @GetMapping("/testMuchImplement")
     public Integer testMuchImplement(Integer number){
         return testService.muchImplements(number);
