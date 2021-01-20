@@ -23,3 +23,13 @@
     
 ## 归纳留存了实用但是网上难解决的工具类
     com.biki.project.common.utils
+    
+## 产生随机数的工具类，能够解决多个线程发生的竞争争夺
+    com.biki.project.common.utils.RandomNumberUtils
+    
+## DTO、VO等对属性的校验的工具类
+    com.biki.project.common.utils.ValidatorUtils
+    该方法可在不止controller里对DTO里的属性进行自动校验
+    若DTO、VO等加了validation的注解，如@NotBlank、@NotNull等，就可以调用该方法，对DTO里面的属性就行校验
+    
+   
