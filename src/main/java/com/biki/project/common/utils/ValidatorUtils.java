@@ -19,7 +19,7 @@ public class ValidatorUtils {
     /**
      *若DTO、VO等加了validation的注解，如@NotBlank、@NotNull等
      * 就可以调用该方法，对DTO里面的属性就行校验
-     * @param t
+     * @param t DTO、VO等加了对象validation注解的对象
      */
     public static void valid(Object t) {
 

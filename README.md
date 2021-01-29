@@ -32,4 +32,8 @@
     该方法可在不止controller里对DTO里的属性进行自动校验
     若DTO、VO等加了validation的注解，如@NotBlank、@NotNull等，就可以调用该方法，对DTO里面的属性就行校验
     
+## HttpClient
+    com.biki.project.common.utils.HttpClientUtil
+    包括get、post、put、delete等请求类型
+    
    
