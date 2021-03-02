@@ -41,4 +41,7 @@
     
 ## ThreadLocal学习
     com.biki.project.learn.ThreadLocalTest
+    
+## 动态代理 -- JDK动态代理示例
+    com.biki.project.learn.proxy.dynamicProxy.DynamicProxyDemo
    
