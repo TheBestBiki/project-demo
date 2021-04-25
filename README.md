@@ -44,4 +44,7 @@
     
 ## 动态代理 -- JDK动态代理示例
     com.biki.project.learn.proxy.dynamicProxy.DynamicProxyDemo
+    
+## REST API介绍 以及 如何写测试类（模拟访问controller）
+    参考网址：https://www.cnblogs.com/paddix/p/8215245.html
    
